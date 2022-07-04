@@ -1,6 +1,6 @@
 # vue3-template-admin
 
-[vue-manage-system](https://github.com/lin-xin/vue-manage-system)，因为这个项目非常干净，但最近没有更新`typescript`和`<script setup>`的写法，所以将基于此项目做一套自用的模板。
+目前未开发完成，基于项目[vue-manage-system](https://github.com/lin-xin/vue-manage-system)，因为这个项目非常干净，但最近没有更新`typescript`和`<script setup>`的写法，所以将基于此项目做一套自用的模板。
 
 ## Recommended IDE Setup
 

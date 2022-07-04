@@ -4,11 +4,14 @@ import { createPinia } from "pinia"
 import App from "./App.vue"
 import router from "./router"
 
-import installElementPlus from './plugins/element'
+import initElementPlus from "./plugins/element"
+
+import "@/assets/css/main.scss"
+import "@/assets/css/color-dark.scss"
 
 const app = createApp(App)
 
-installElementPlus(app)
+initElementPlus(app)
 app.use(createPinia())
 app.use(router)
 

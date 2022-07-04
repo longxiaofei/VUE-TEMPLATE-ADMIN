@@ -2,7 +2,13 @@
   <div class="login-wrap">
     <div class="ms-login">
       <div class="ms-title">后台管理系统</div>
-      <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
+      <el-form
+        :model="param"
+        :rules="rules"
+        ref="login"
+        label-width="0px"
+        class="ms-content"
+      >
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="username">
             <template #prepend>
@@ -11,8 +17,12 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" placeholder="password" v-model="param.password"
-            @keyup.enter="submitForm(login)">
+          <el-input
+            type="password"
+            placeholder="password"
+            v-model="param.password"
+            @keyup.enter="submitForm(login)"
+          >
             <template #prepend>
               <el-button icon="Lock"></el-button>
             </template>
@@ -27,46 +37,41 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, reactive } from "vue"
-  // import { useTagsStore } from '../store/tags'
-  import { useRouter } from "vue-router"
-  import { ElMessage } from "element-plus"
-  import type { FormInstance } from 'element-plus'
+import { ref, reactive } from "vue"
+import { useRouter } from "vue-router"
+import { ElMessage } from "element-plus"
+import type { FormInstance } from "element-plus"
 
-  const router = useRouter()
-  const param = reactive({
-    username: "admin",
-    password: "123123",
+const router = useRouter()
+const param = reactive({
+  username: "admin",
+  password: "123123",
+})
+
+const rules = {
+  username: [
+    {
+      required: true,
+      message: "请输入用户名",
+      trigger: "blur",
+    },
+  ],
+  password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+}
+const login = ref<FormInstance>()
+
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid) => {
+    if (valid) {
+      ElMessage.success("登录成功")
+      localStorage.setItem("ms_username", param.username)
+      router.push("/")
+    } else {
+      ElMessage.error("登录失败")
+    }
   })
-
-  const rules = {
-    username: [
-      {
-        required: true,
-        message: "请输入用户名",
-        trigger: "blur",
-      },
-    ],
-    password: [
-      { required: true, message: "请输入密码", trigger: "blur" },
-    ]
-  }
-  const login = ref<FormInstance>()
-
-  const submitForm = async (formEl: FormInstance | undefined) => {
-    if (!formEl) return
-    await formEl.validate(valid => {
-      if (valid) {
-        ElMessage.success("登录成功")
-        localStorage.setItem("ms_username", param.username)
-        router.push("/")
-      } else {
-        ElMessage.error("登录失败")
-      }
-    })
-  }
-  // const tags = useTagsStore()
-  // tags.clearTags()
+}
 </script>
 
 <style scoped>
